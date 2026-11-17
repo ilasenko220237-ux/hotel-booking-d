@@ -1,0 +1,17 @@
+digraph G {
+  rankdir=LR; nodesep=0.5; ranksep=1.2; dpi=150;
+  fontname="DejaVu Sans"; node [fontname="DejaVu Sans", fontsize=12, shape=plain]; edge [fontname="DejaVu Sans", fontsize=11];
+  label="Диаграмма классов: сервис бронирования «Сладкие сны»"; labelloc=t; fontsize=16;
+  Category [label=<<table border="1" cellborder="0" cellspacing="0" cellpadding="4" bgcolor="#ffffff"><tr><td bgcolor="#e8f0fe"><b>Category (Категория)</b></td></tr><hr/><tr><td align="left">- id: int<br align="left"/>- name: string<br align="left"/></td></tr></table>>];
+  Room [label=<<table border="1" cellborder="0" cellspacing="0" cellpadding="4" bgcolor="#ffffff"><tr><td bgcolor="#e8f0fe"><b>Room (Номер)</b></td></tr><hr/><tr><td align="left">- id: int<br align="left"/>- number: string<br align="left"/>- price: int<br align="left"/>- capacity: int<br align="left"/>- area: int<br align="left"/>- features: string<br align="left"/>- image: string<br align="left"/></td></tr><hr/><tr><td align="left">+ isAvailable(checkIn, checkOut): bool<br align="left"/></td></tr></table>>];
+  Booking [label=<<table border="1" cellborder="0" cellspacing="0" cellpadding="4" bgcolor="#ffffff"><tr><td bgcolor="#e8f0fe"><b>Booking (Заявка)</b></td></tr><hr/><tr><td align="left">- id: int<br align="left"/>- firstName: string<br align="left"/>- lastName: string<br align="left"/>- phone: string<br align="left"/>- email: string<br align="left"/>- checkIn: date<br align="left"/>- checkOut: date<br align="left"/>- status: BookingStatus<br align="left"/>- createdAt: datetime<br align="left"/></td></tr><hr/><tr><td align="left">+ validate(): bool<br align="left"/></td></tr></table>>];
+  Status [label=<<table border="1" cellborder="0" cellspacing="0" cellpadding="4" bgcolor="#ffffff"><tr><td bgcolor="#fff4d6"><i>«enumeration»</i><br/><b>BookingStatus</b></td></tr><hr/><tr><td align="left">NEW — «Новая»<br align="left"/>APPROVED — «Одобрена»<br align="left"/>REJECTED — «Отклонена»<br align="left"/></td></tr></table>>];
+  Guest [label=<<table border="1" cellborder="0" cellspacing="0" cellpadding="4" bgcolor="#ffffff"><tr><td bgcolor="#e6f6ec"><b>Guest (Гость)</b></td></tr><hr/><tr><td align="left">+ viewCatalog()<br align="left"/>+ filterRooms(category)<br align="left"/>+ bookRoom(room, data)<br align="left"/></td></tr></table>>];
+  Admin [label=<<table border="1" cellborder="0" cellspacing="0" cellpadding="4" bgcolor="#ffffff"><tr><td bgcolor="#fde8e8"><b>Administrator (Администратор)</b></td></tr><hr/><tr><td align="left">- login: string<br align="left"/>- password: string<br align="left"/></td></tr><hr/><tr><td align="left">+ signIn()<br align="left"/>+ viewBookings()<br align="left"/>+ approveBooking(b)<br align="left"/>+ rejectBooking(b)<br align="left"/>+ deleteBooking(b)<br align="left"/>+ manageRooms()<br align="left"/></td></tr></table>>];
+  Category -> Room [arrowhead=none, taillabel="1", headlabel="0..*", label="содержит"];
+  Room -> Booking [arrowhead=none, taillabel="1", headlabel="0..*", label="бронируется"];
+  Booking -> Status [arrowhead=vee];
+  Guest -> Booking [style=dashed, arrowhead=vee, label="создаёт"];
+  Admin -> Booking [style=dashed, arrowhead=vee, label="модерирует"];
+  Admin -> Room [style=dashed, arrowhead=vee, label="управляет"];
+}

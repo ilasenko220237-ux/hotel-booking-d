@@ -1,0 +1,35 @@
+digraph G {
+  rankdir=LR; splines=true; nodesep=0.35; ranksep=1.3; dpi=150;
+  fontname="DejaVu Sans"; node [fontname="DejaVu Sans", fontsize=12]; edge [fontname="DejaVu Sans", fontsize=10];
+  label="Диаграмма вариантов использования: сервис бронирования «Сладкие сны»"; labelloc=t; fontsize=16;
+  Guest [label="Гость", shape=box, style="filled", fillcolor="#e8f0fe", width=1.2, height=0.8];
+  Admin [label="Администратор", shape=box, style="filled", fillcolor="#fde8e8", width=1.6, height=0.8];
+  subgraph cluster_s { label="Система бронирования"; style=rounded; color="#555555";
+    node [shape=ellipse, style=filled, fillcolor="#ffffff"];
+    U1 [label="Просмотр контента сайта"];
+    U2 [label="Просмотр каталога номеров"];
+    U3 [label="Фильтрация номеров\n(категория, цена, места)"];
+    U4 [label="Бронирование номера"];
+    U5 [label="Ввод данных заявки\n(ФИО, телефон, email, даты)"];
+    U6 [label="Проверка занятости дат"];
+    U7 [label="Авторизация"];
+    U8 [label="Просмотр заявок"];
+    U9 [label="Изменение статуса заявки\n(Одобрена / Отклонена)"];
+    U10 [label="Удаление заявки"];
+    U11 [label="Управление каталогом номеров"];
+    U12 [label="Добавление номера"];
+    U13 [label="Редактирование номера"];
+    U14 [label="Удаление номера"];
+  }
+  Guest -> U1 [arrowhead=none]; Guest -> U2 [arrowhead=none]; Guest -> U4 [arrowhead=none];
+  Admin -> U7 [arrowhead=none dir=none]; Admin -> U8 [arrowhead=none]; Admin -> U9 [arrowhead=none]; Admin -> U10 [arrowhead=none]; Admin -> U11 [arrowhead=none];
+  U3 -> U2 [style=dashed, label="«extend»"];
+  U4 -> U5 [style=dashed, label="«include»"];
+  U4 -> U6 [style=dashed, label="«include»"];
+  U8 -> U7 [style=dashed, label="«include»"];
+  U9 -> U8 [style=dashed, label="«extend»"];
+  U10 -> U8 [style=dashed, label="«extend»"];
+  U12 -> U11 [style=dashed, label="«extend»"];
+  U13 -> U11 [style=dashed, label="«extend»"];
+  U14 -> U11 [style=dashed, label="«extend»"];
+}

@@ -1,0 +1,57 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+class Category {
+  - id: int
+  - name: string
+}
+class Room {
+  - id: int
+  - number: string
+  - price: int
+  - capacity: int
+  - area: int
+  - features: string
+  - image: string
+  + isAvailable(checkIn: date, checkOut: date): bool
+}
+class Booking {
+  - id: int
+  - firstName: string
+  - lastName: string
+  - phone: string
+  - email: string
+  - checkIn: date
+  - checkOut: date
+  - status: BookingStatus
+  - createdAt: datetime
+  + validate(): bool
+}
+enum BookingStatus {
+  NEW — «Новая»
+  APPROVED — «Одобрена»
+  REJECTED — «Отклонена»
+}
+class Guest {
+  + viewCatalog()
+  + filterRooms(category)
+  + bookRoom(room, data)
+}
+class Administrator {
+  - login: string
+  - password: string
+  + signIn()
+  + viewBookings()
+  + approveBooking(booking)
+  + rejectBooking(booking)
+  + deleteBooking(booking)
+  + manageRooms()
+}
+
+Category "1" -- "0..*" Room : содержит
+Room "1" -- "0..*" Booking : бронируется
+Booking --> BookingStatus
+Guest ..> Booking : создаёт
+Administrator ..> Booking : модерирует
+Administrator ..> Room : управляет
+@enduml
